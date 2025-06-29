@@ -5,6 +5,3 @@ scikit-learn
 PyYAML
 matplotlib
 seaborn
-
-
-
