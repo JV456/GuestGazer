@@ -1,5 +1,5 @@
 .venv/
 .env/
 venv/
-notebook/random_forest.pkl
-*.pkl
+.pkl/
+
