@@ -59,7 +59,7 @@ class DataProcessor:
             return df
         except Exception as e:
             logger.error(f"Error during preprocess step {e}")
-            raise CustomException("Enter while preprocess data", e)
+            raise CustomException("Error while preprocess data", e)
     
     def balance_data(self,df):
         try:
@@ -77,7 +77,7 @@ class DataProcessor:
             return balanced_df
         except Exception as e:
             logger.error(f"Error during balancing data step {e}")
-            raise CustomException("Enter while balancing data", e)
+            raise CustomException("Error while balancing data", e)
         
         
     def select_features(self,df):
@@ -112,6 +112,45 @@ class DataProcessor:
         
         except Exception as e:
             logger.error(f"Error during feature selection step {e}")
-            raise CustomException("Enter while feature selection", e)
+            raise CustomException("Error while feature selection", e)
         
+    def save_data(self, df, file_path):
+        try:
+            logger.info("Saving our data in processed folder")
+            df.to_csv(file_path, index=False)
+            
+            logger.info(f"Data Saved successfully to {file_path}")
+        except Exception as e:
+            logger.error(f"Error during saving data step {e}")
+            raise CustomException("Error while saving data", e)   
+        
+    def process(self):
+        try:
+            logger.info("Loading the data from RAW directory")
+            
+            train_df = load_data(self.train_path)
+            test_df = load_data(self.test_path)
+            
+            train_df = self.preprocess_data(train_df)
+            test_df = self.preprocess_data(test_df)
+            
+            train_df = self.balance_data(train_df)
+            test_df = self.balance_data(test_df)
+            
+            train_df = self.select_features(train_df)
+            test_df = test_df[train_df.columns]
+            
+            self.save_data(train_df, PROCESSED_TRAIN_DATA_PATH)
+            self.save_data(test_df, PROCESSED_TEST_DATA_PATH)
+            
+            logger.info("Data Processing completed Successfully")
+        except Exception as e:
+            logger.error(f"Error during preprocessing pipeline {e}")
+            raise CustomException("Error while data preprocessing pipeline", e)
+
+
+if __name__=="__main__":
+    processor = DataProcessor(TRAIN_FILE_PATH, TEST_FILE_PATH, PROCESSED_DIR, CONFIG_PATH)
+    processor.process()
+            
         
