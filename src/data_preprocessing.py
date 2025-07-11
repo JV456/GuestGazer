@@ -78,3 +78,40 @@ class DataProcessor:
         except Exception as e:
             logger.error(f"Error during balancing data step {e}")
             raise CustomException("Enter while balancing data", e)
+        
+        
+    def select_features(self,df):
+        try:
+            logger.info("Staring our feature selection step")
+            
+            X = df.drop(columns="booking_status")
+            y = df["booking_status"]
+            
+            model = RandomForestClassifier(random_state=42)
+            model.fit(X,y)
+            
+            feature_importance = model.feature_importances_
+            
+            feature_importance_df = pd.DataFrame({
+                'feature': X.columns,
+                'importance': feature_importance
+                    })
+            
+            top_feature_importance_df = feature_importance_df.sort_values(by="importance", ascending=False)
+            
+            num_features_to_select = self.config["data_processing"]["no_of_features"]
+            
+            top_10_features = top_feature_importance_df["feature"].head(num_features_to_select).values
+            
+            logger.info(f"Features selected : {top_10_features}")
+            
+            top_10_df = df[top_10_features.tolist() + ["booking_status"]]
+            
+            logger.info("Feature selection completed successfully")
+            return top_10_df
+        
+        except Exception as e:
+            logger.error(f"Error during feature selection step {e}")
+            raise CustomException("Enter while feature selection", e)
+        
+        
