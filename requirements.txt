@@ -5,6 +5,6 @@ scikit-learn
 PyYAML
 matplotlib
 seaborn
-
+imbalanced-learn
 
 
