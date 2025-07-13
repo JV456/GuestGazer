@@ -1,17 +1,19 @@
 import os
+
+import joblib
+import lightgbm as lgb
 import numpy as np
 import pandas as pd
-import joblib
+from scipy.stats import randint
+from sklearn.metrics import (accuracy_score, f1_score, precision_score,
+                             recall_score)
 from sklearn.model_selection import RandomizedSearchCV
-import lightgbm as lgb
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-from src.logger import get_logger
-from src.custom_exception import CustomException
+
 from config.model_params import *
 from config.paths_config import *
-from utils.common_functions import read_yaml, load_data
-from scipy.stats import randint
-
+from src.custom_exception import CustomException
+from src.logger import get_logger
+from utils.common_functions import load_data, read_yaml
 
 logger = get_logger(__name__)
 
@@ -100,5 +102,34 @@ class ModelTraining:
         except Exception as e:
             logger.error(f"Error while evaluating model: {e}")
             raise CustomException("Failed to evaluate model", e)
-        
+    
+    def save_model(self, model):
+        try:
+            os.makedirs(os.path.dirname(self.model_output_path), exist_ok=True)
+            
+            logger.info("Saving the trained model")
+            
+            joblib.dump(model, self.model_output_path)
+            
+            logger.info(f"Model saved at {self.model_output_path}")
+        except Exception as e:
+            logger.error(f"Error while saving model: {e}")
+            raise CustomException("Failed to save model", e)
+    
+    def run(self):
+        try:
+            logger.info("Starting our model training pipeline")
+            X_train, y_train, X_test, y_test = self.load_and_split_data()
+            best_lgbm_model = self.train_lgbm(X_train, y_train)
+            evaluation_metrics = self.evaluate_model(best_lgbm_model, X_test, y_test)
+            self.save_model(best_lgbm_model)
+            
+            logger.info("Model training successfully completed")
+        except Exception as e:
+            logger.error(f"Error in model training pipeline: {e}")
+            raise CustomException("Model training pipeline failed", e)
+
+if __name__ == "__main__":
+    trainer = ModelTraining(PROCESSED_TRAIN_DATA_PATH,PROCESSED_TEST_DATA_PATH,MODEL_OUTPUT_PATH)
+    trainer.run()
 
