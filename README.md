@@ -120,5 +120,5 @@ Hotels face significant revenue losses due to last-minute cancellations. This pr
 
 
 
-# ⭐ If you found this project helpful, please give it a star! ⭐
+⭐ If you found this project helpful, please give it a star! ⭐
 
