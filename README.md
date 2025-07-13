@@ -30,4 +30,5 @@ Hotels face significant revenue losses due to last-minute cancellations. This pr
 
 ## 🏗️ Project Architecture
 
-![Alt text](image/Screenshot 2025-07-14 015608.png)
+<img width="1727" height="383" alt="Screenshot 2025-07-14 015608" src="https://github.com/user-attachments/assets/a2ffb570-6e09-45c3-8ea6-bc282783e9f3" />
+
