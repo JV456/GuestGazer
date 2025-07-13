@@ -1,0 +1,14 @@
+artifact_uri: file:///B:/Hotel_Reservation_Prediction/mlruns/0/cb6faea9b15941d6b0bde5be7bbd438c/artifacts
+end_time: 1752428911543
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: cb6faea9b15941d6b0bde5be7bbd438c
+run_name: stately-deer-631
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752428898255
+status: 3
+tags: []
+user_id: Jai Vadula
