@@ -10,3 +10,5 @@ Requires-Dist: PyYAML
 Requires-Dist: matplotlib
 Requires-Dist: seaborn
 Requires-Dist: imbalanced-learn
+Requires-Dist: lightgbm
+Requires-Dist: joblib

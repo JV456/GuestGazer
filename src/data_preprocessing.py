@@ -153,4 +153,3 @@ if __name__=="__main__":
     processor = DataProcessor(TRAIN_FILE_PATH, TEST_FILE_PATH, PROCESSED_DIR, CONFIG_PATH)
     processor.process()
             
-        

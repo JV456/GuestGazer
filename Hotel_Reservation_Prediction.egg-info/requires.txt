@@ -6,3 +6,5 @@ PyYAML
 matplotlib
 seaborn
 imbalanced-learn
+lightgbm
+joblib
