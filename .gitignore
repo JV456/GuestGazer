@@ -2,3 +2,6 @@
 .env/
 venv/
 *.pkl
+mlruns/
+Hotel_Reservation_Prediction.egg-info/
+logs/
