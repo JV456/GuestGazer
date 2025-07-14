@@ -5,7 +5,7 @@ LIGHTGBM_PARAMS = {  ## LightGradientBoostingMachine parameters
     'max_depth': randint(5,50),
     'learning_rate': uniform(0.01, 0.2),
     'num_leaves': randint(20, 100),
-    'boosting_type': ['gbdt', 'dart', 'goss']
+    'boosting_type': ['gbdt', 'dart']
 }
 
 RANDOM_SEARCH_PARAMS = {
